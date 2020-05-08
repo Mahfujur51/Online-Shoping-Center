@@ -3,8 +3,8 @@
 session_start();
 include('include/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
+{	
+	header('location:index.php');
 }
 else{
 date_default_timezone_set('Asia/Kolkata');// change according timezone
@@ -13,11 +13,17 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_POST['submit']))
 {
-	$category=$_POST['category'];
-	$description=$_POST['description'];
+	$categoryname=$_POST['categoryname'];
+	$catdescription=$_POST['catdescription'];
 	$id=intval($_GET['id']);
-$sql=mysqli_query($con,"update category set categoryName='$category',categoryDescription='$description',updationDate='$currentTime' where id='$id'");
-$_SESSION['msg']="Category Updated !!";
+	$upsql="UPDATE tbl_catagory SET categoryname='$categoryname',catdescription='$catdescription' WHERE id='$id'";
+	$upquery=mysqli_query($con,$upsql);
+	if ($upquery) {
+
+		$_SESSION['msg']="Category Updated !!";
+         echo "<script type='text/javascript'> document.location ='category.php'; </script>";
+
+	}
 
 }
 
@@ -35,13 +41,13 @@ $_SESSION['msg']="Category Updated !!";
 	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
 </head>
 <body>
-<?php include('include/header.php');?>
+	<?php include('include/header.php');?>
 
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-<?php include('include/sidebar.php');?>				
-			<div class="span9">
+				<?php include('include/sidebar.php');?>				
+				<div class="span9">
 					<div class="content">
 
 						<div class="module">
@@ -50,46 +56,48 @@ $_SESSION['msg']="Category Updated !!";
 							</div>
 							<div class="module-body">
 
-									<?php if(isset($_POST['submit']))
-{?>
+								<?php if(isset($_POST['submit']))
+								{?>
 									<div class="alert alert-success">
 										<button type="button" class="close" data-dismiss="alert">×</button>
-									<strong>Well done!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
+										<strong>Well done!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
 									</div>
-<?php } ?>
+								<?php } ?>
 
 
-									<br />
+								<br />
 
-			<form class="form-horizontal row-fluid" name="Category" method="post" >
-<?php
-$id=intval($_GET['id']);
-$query=mysqli_query($con,"select * from category where id='$id'");
-while($row=mysqli_fetch_array($query))
-{
-?>									
-<div class="control-group">
-<label class="control-label" for="basicinput">Category Name</label>
-<div class="controls">
-<input type="text" placeholder="Enter category Name"  name="category" value="<?php echo  htmlentities($row['categoryName']);?>" class="span8 tip" required>
-</div>
-</div>
+								<form class="form-horizontal row-fluid" name="Category" method="post" >
+									<?php
+									$id=intval($_GET['id']);
+									$sql="SELECT * FROM tbl_catagory WHERE id='$id'";
+									$query=mysqli_query($con,$sql);
+									while ($row=mysqli_fetch_array($query)) {
+	# code...
+
+										?>									
+										<div class="control-group">
+											<label class="control-label" for="basicinput">Category Name</label>
+											<div class="controls">
+												<input type="text" placeholder="Enter category Name"  name="categoryname" value="<?php echo  htmlentities($row['categoryname']);?>" class="span8 tip" required>
+											</div>
+										</div>
 
 
-<div class="control-group">
+										<div class="control-group">
 											<label class="control-label" for="basicinput">Description</label>
 											<div class="controls">
-												<textarea class="span8" name="description" rows="5"><?php echo  htmlentities($row['categoryDescription']);?></textarea>
+												<textarea class="span8" name="catdescription" rows="5"><?php echo  htmlentities($row['catdescription']);?></textarea>
 											</div>
 										</div>
 									<?php } ?>	
 
-	<div class="control-group">
-											<div class="controls">
-												<button type="submit" name="submit" class="btn">Update</button>
-											</div>
+									<div class="control-group">
+										<div class="controls">
+											<button type="submit" name="submit" class="btn">Update</button>
 										</div>
-									</form>
+									</div>
+								</form>
 							</div>
 						</div>
 
@@ -104,7 +112,7 @@ while($row=mysqli_fetch_array($query))
 		</div><!--/.container-->
 	</div><!--/.wrapper-->
 
-<?php include('include/footer.php');?>
+	<?php include('include/footer.php');?>
 
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
