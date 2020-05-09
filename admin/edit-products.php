@@ -99,7 +99,9 @@ $("#suggesstion-box").hide();
 
 <?php 
 
-$query=mysqli_query($con,"select products.*,category.categoryName as catname,category.id as cid,subcategory.subcategory as subcatname,subcategory.id as subcatid from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory where products.id='$pid'");
+$sql="SELECT tbl_product.*,tbl_catagory.categoryname as catname,tbl_catagory.id as pcatid,tbl_subcat.subcat as subcatname,tbl_subcat.id as scatid FROM tbl_product JOIN tbl_catagory ON tbl_catagory.id=tbl_product.catid JOIN tbl_subcat ON tbl_product.subcatid=tbl_subcat.id WHERE tbl_product.id='$pid'";
+$query=mysqli_query($con,$sql);
+
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -113,18 +115,18 @@ while($row=mysqli_fetch_array($query))
 <label class="control-label" for="basicinput">Category</label>
 <div class="controls">
 <select name="category" class="span8 tip" onChange="getSubcat(this.value);"  required>
-<option value="<?php echo htmlentities($row['cid']);?>"><?php echo htmlentities($row['catname']);?></option> 
-<?php $query=mysqli_query($con,"select * from category");
-while($rw=mysqli_fetch_array($query))
+<option value="<?php echo htmlentities($row['pcatid']);?>"><?php echo htmlentities($row['catname']);?></option> 
+<?php $cquery=mysqli_query($con,"SELECT * FROM tbl_catagory");
+while($rw=mysqli_fetch_array($cquery))
 {
-	if($row['catname']==$rw['categoryName'])
+	if($row['catname']==$rw['categoryname'])
 	{
 		continue;
 	}
 	else{
 	?>
 
-<option value="<?php echo $rw['id'];?>"><?php echo $rw['categoryName'];?></option>
+<option value="<?php echo $rw['id'];?>"><?php echo $rw['categoryname'];?></option>
 <?php }} ?>
 </select>
 </div>
@@ -136,7 +138,7 @@ while($rw=mysqli_fetch_array($query))
 <div class="controls">
 
 <select   name="subcategory"  id="subcategory" class="span8 tip" required>
-<option value="<?php echo htmlentities($row['subcatid']);?>"><?php echo htmlentities($row['subcatname']);?></option>
+<option value="<?php echo htmlentities($row['scatid']);?>"><?php echo htmlentities($row['subcatname']);?></option>
 </select>
 </div>
 </div>
@@ -145,35 +147,35 @@ while($rw=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Name</label>
 <div class="controls">
-<input type="text"    name="productName"  placeholder="Enter Product Name" value="<?php echo htmlentities($row['productName']);?>" class="span8 tip" >
+<input type="text"    name="productname"  placeholder="Enter Product Name" value="<?php echo htmlentities($row['productname']);?>" class="span8 tip" >
 </div>
 </div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Company</label>
 <div class="controls">
-<input type="text"    name="productCompany"  placeholder="Enter Product Comapny Name" value="<?php echo htmlentities($row['productCompany']);?>" class="span8 tip" required>
+<input type="text"    name="productcompany"  placeholder="Enter Product Comapny Name" value="<?php echo htmlentities($row['productcompany']);?>" class="span8 tip" required>
 </div>
 </div>
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price Before Discount</label>
 <div class="controls">
-<input type="text"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
+<input type="text"    name="productpricebeforediscount"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productpricebeforediscount']);?>"  class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price</label>
 <div class="controls">
-<input type="text"    name="productprice"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']);?>" class="span8 tip" required>
+<input type="text"    name="productprice"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productprice']);?>" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Description</label>
 <div class="controls">
-<textarea  name="productDescription"  placeholder="Enter Product Description" rows="6" class="span8 tip">
-<?php echo htmlentities($row['productDescription']);?>
+<textarea  name="pdescription"  placeholder="Enter Product Description" rows="6" class="span8 tip">
+<?php echo htmlentities($row['pdescription']);?>
 </textarea>  
 </div>
 </div>
@@ -181,15 +183,15 @@ while($rw=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Shipping Charge</label>
 <div class="controls">
-<input type="text"    name="productShippingcharge"  placeholder="Enter Product Shipping Charge" value="<?php echo htmlentities($row['shippingCharge']);?>" class="span8 tip" required>
+<input type="text"    name="shippingcharge"  placeholder="Enter Product Shipping Charge" value="<?php echo htmlentities($row['shippingcharge']);?>" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Availability</label>
 <div class="controls">
-<select   name="productAvailability"  id="productAvailability" class="span8 tip" required>
-<option value="<?php echo htmlentities($row['productAvailability']);?>"><?php echo htmlentities($row['productAvailability']);?></option>
+<select   name="productavailability"  id="productAvailability" class="span8 tip" required>
+<option value="<?php echo htmlentities($row['productavailability']);?>"><?php echo htmlentities($row['productavailability']);?></option>
 <option value="In Stock">In Stock</option>
 <option value="Out of Stock">Out of Stock</option>
 </select>
@@ -201,7 +203,7 @@ while($rw=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image1</label>
 <div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage1']);?>" width="200" height="100"> <a href="update-image1.php?id=<?php echo $row['id'];?>">Change Image</a>
+<img src="productimage/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productimage1']);?>" width="200" height="100"> <a href="update-image1.php?id=<?php echo $row['id'];?>">Change Image</a>
 </div>
 </div>
 
@@ -209,7 +211,7 @@ while($rw=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image2</label>
 <div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage2']);?>" width="200" height="100"> <a href="update-image2.php?id=<?php echo $row['id'];?>">Change Image</a>
+<img src="productimage/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productimage2']);?>" width="200" height="100"> <a href="update-image2.php?id=<?php echo $row['id'];?>">Change Image</a>
 </div>
 </div>
 
@@ -218,7 +220,7 @@ while($rw=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image3</label>
 <div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage3']);?>" width="200" height="100"> <a href="update-image3.php?id=<?php echo $row['id'];?>">Change Image</a>
+<img src="productimage/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productimage3']);?>" width="200" height="100"> <a href="update-image3.php?id=<?php echo $row['id'];?>">Change Image</a>
 </div>
 </div>
 <?php } ?>
