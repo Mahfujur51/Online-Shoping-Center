@@ -5,11 +5,12 @@ include('includes/config.php');
 // Code user Registration
 if(isset($_POST['submit']))
 {
-$name=$_POST['fullname'];
-$email=$_POST['emailid'];
+$name=$_POST['name'];
+$email=$_POST['email'];
 $contactno=$_POST['contactno'];
 $password=md5($_POST['password']);
-$query=mysqli_query($con,"insert into users(name,email,contactno,password) values('$name','$email','$contactno','$password')");
+
+$query=mysqli_query($con,"INSERT INTO tbl_user(name,email,contactno,password) values('$name','$email','$contactno','$password')");
 if($query)
 {
 	echo "<script>alert('You are successfully register');</script>";
@@ -23,12 +24,12 @@ if(isset($_POST['login']))
 {
    $email=$_POST['email'];
    $password=md5($_POST['password']);
-$query=mysqli_query($con,"SELECT * FROM users WHERE email='$email' and password='$password'");
+$query=mysqli_query($con,"SELECT * FROM tbl_user WHERE email='$email' and password='$password'");
 $num=mysqli_fetch_array($query);
 if($num>0)
 {
 $extra="my-cart.php";
-$_SESSION['login']=$_POST['email'];
+$_SESSION['login']=$email;
 $_SESSION['id']=$num['id'];
 $_SESSION['username']=$num['name'];
 $uip=$_SERVER['REMOTE_ADDR'];
@@ -205,13 +206,13 @@ echo htmlentities($_SESSION['errmsg']="");
 	<form class="register-form outer-top-xs" role="form" method="post" name="register" onSubmit="return valid();">
 <div class="form-group">
 	    	<label class="info-title" for="fullname">Full Name <span>*</span></label>
-	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required">
+	    	<input type="text" class="form-control unicase-form-control text-input" id="name" name="name" required="required">
 	  	</div>
 
 
 		<div class="form-group">
 	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
-	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="emailid" required >
+	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="email" required >
 	    	       <span id="user-availability-status1" style="font-size:12px;"></span>
 	  	</div>
 
