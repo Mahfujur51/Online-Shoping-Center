@@ -7,8 +7,7 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-date_default_timezone_set('Asia/Kolkata');// change according timezone
-$currentTime = date( 'd-m-Y h:i:s A', time () );
+
 
 if(isset($_GET['del']))
 		  {
@@ -69,7 +68,12 @@ if(isset($_GET['del']))
 									</thead>
 									<tbody>
 
-<?php $query=mysqli_query($con,"select products.*,category.categoryName,subcategory.subcategory from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
+<?php
+
+$sql="SELECT tbl_product.* "
+
+
+ $query=mysqli_query($con,"select products.*,category.categoryName,subcategory.subcategory from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {

@@ -1,16 +1,16 @@
 <?php
 include('include/config.php');
-if(!empty($_POST["cat_id"])) 
+if(!empty($_POST["catid"])) 
 {
- $id=intval($_POST['cat_id']);
-$query=mysqli_query($con,"SELECT * FROM subcategory WHERE categoryid=$id");
+ $id=intval($_POST['catid']);
+$query=mysqli_query($con,"SELECT * FROM tbl_subcat WHERE catid='$id'");
 ?>
 <option value="">Select Subcategory</option>
 <?php
  while($row=mysqli_fetch_array($query))
  {
   ?>
-  <option value="<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['subcategory']); ?></option>
+  <option value="<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['subcat']); ?></option>
   <?php
  }
 }
