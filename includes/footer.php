@@ -70,7 +70,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>New Delhi, Delhi</p>
+                    <p>Mujibnagar,Meherpur,Khulna</p>
                 </div>
             </li>
 
@@ -94,7 +94,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <span><a href="#">info@phpgurukul.com</a></span>
+                    <span><a href="#">info@MahfujurRahman.com</a></span>
                 </div>
             </li>
               

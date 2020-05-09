@@ -53,7 +53,7 @@ if(isset($_POST['submit']))
 				
 					<ul class="nav pull-right">
 
-						<li><a href="http://localhost/shopping/">
+						<li><a href="http://localhost/online_shoping/">
 						Back to Portal
 						
 						</a></li>

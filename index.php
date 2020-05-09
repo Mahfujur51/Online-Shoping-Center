@@ -177,8 +177,9 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 					<div class="product-slider">
 						<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
 <?php
-$ret=mysqli_query($con,"select * from products");
-while ($row=mysqli_fetch_array($ret)) 
+$sql="SELECT * FROM tbl_product";
+$query=mysqli_query($con,$sql);
+while ($row=mysqli_fetch_array($query)) 
 {
 	# code...
 
@@ -193,7 +194,7 @@ while ($row=mysqli_fetch_array($ret))
 		<div class="product-image">
 			<div class="image">
 				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>">
-				<img  src="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>"  width="180" height="300" alt=""></a>
+				<img  src="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>"  width="180" height="300" alt=""></a>
 			</div><!-- /.image -->			
 
 			                        		   
@@ -201,14 +202,14 @@ while ($row=mysqli_fetch_array($ret))
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs.<?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?>	</span>
+					Rs.<?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productpricebeforediscount']);?>	</span>
 									
 			</div><!-- /.product-price -->
 			
@@ -231,7 +232,7 @@ while ($row=mysqli_fetch_array($ret))
 					<div class="product-slider">
 						<div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
 		<?php
-$ret=mysqli_query($con,"select * from products where category=3");
+$ret=mysqli_query($con,"SELECT * from tbl_product where catid=4");
 while ($row=mysqli_fetch_array($ret)) 
 {
 	# code...
@@ -240,6 +241,7 @@ while ($row=mysqli_fetch_array($ret))
 ?>
 
 						    	
+							    	
 		<div class="item item-carousel">
 			<div class="products">
 				
@@ -247,7 +249,7 @@ while ($row=mysqli_fetch_array($ret))
 		<div class="product-image">
 			<div class="image">
 				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>">
-				<img  src="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>"  width="180" height="300" alt=""></a>
+				<img  src="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>"  width="180" height="300" alt=""></a>
 			</div><!-- /.image -->			
 
 			                        		   
@@ -255,14 +257,14 @@ while ($row=mysqli_fetch_array($ret))
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs. <?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
+					Rs.<?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productpricebeforediscount']);?>	</span>
 									
 			</div><!-- /.product-price -->
 			
@@ -288,12 +290,12 @@ while ($row=mysqli_fetch_array($ret))
 					<div class="product-slider">
 						<div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
 		<?php
-$ret=mysqli_query($con,"select * from products where category=5");
+$ret=mysqli_query($con,"SELECT * from tbl_product where catid=5");
 while ($row=mysqli_fetch_array($ret)) 
 {
 ?>
 
-						    	
+							    	
 		<div class="item item-carousel">
 			<div class="products">
 				
@@ -301,31 +303,31 @@ while ($row=mysqli_fetch_array($ret))
 		<div class="product-image">
 			<div class="image">
 				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>">
-				<img  src="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>"  width="180" height="300" alt=""></a>
-			</div>		
+				<img  src="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>"  width="180" height="300" alt=""></a>
+			</div><!-- /.image -->			
 
 			                        		   
-		</div>
+		</div><!-- /.product-image -->
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs.<?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
+					Rs.<?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productpricebeforediscount']);?>	</span>
 									
-			</div>
+			</div><!-- /.product-price -->
 			
-		</div>
+		</div><!-- /.product-info -->
 					<div class="action"><a href="index.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="lnk btn btn-primary">Add to Cart</a></div>
-			</div>
+			</div><!-- /.product -->
       
-			</div>
-		</div>
+			</div><!-- /.products -->
+		</div><!-- /.item -->
 	<?php } ?>
 	
 		
@@ -345,41 +347,43 @@ while ($row=mysqli_fetch_array($ret))
 	                   	<div class="owl-carousel homepage-owl-carousel custom-carousel outer-top-xs owl-theme" data-item="2">
 	   
 <?php
-$ret=mysqli_query($con,"select * from products where category=4 and subCategory=4");
+$ret=mysqli_query($con,"SELECT * FROM tbl_product WHERE catid=1 AND subcatid=1");
 while ($row=mysqli_fetch_array($ret)) 
 {
 ?>
 
-
-
-		<div class="item item-carousel">
+	<div class="item item-carousel">
 			<div class="products">
 				
 	<div class="product">		
 		<div class="product-image">
 			<div class="image">
-				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>"  width="180" height="300"></a>
-			</div><!-- /.image -->			                        		   
+				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>">
+				<img  src="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>"  width="180" height="300" alt=""></a>
+			</div><!-- /.image -->			
+
+			                        		   
 		</div><!-- /.product-image -->
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs. <?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
+					Rs.<?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productpricebeforediscount']);?>	</span>
 									
-			</div>
+			</div><!-- /.product-price -->
 			
-		</div>
+		</div><!-- /.product-info -->
 					<div class="action"><a href="index.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="lnk btn btn-primary">Add to Cart</a></div>
-			</div>
-			</div>
-		</div>
+			</div><!-- /.product -->
+      
+			</div><!-- /.products -->
+		</div><!-- /.item -->
 <?php }?>
 
 	
@@ -391,41 +395,45 @@ while ($row=mysqli_fetch_array($ret))
 							<h3 class="section-title">Laptops</h3>
 		                   	<div class="owl-carousel homepage-owl-carousel custom-carousel outer-top-xs owl-theme" data-item="2">
 	<?php
-$ret=mysqli_query($con,"select * from products where category=4 and subCategory=6");
+$ret=mysqli_query($con,"SELECT * FROM tbl_product  where catid=1 and 
+	subcatid=19");
 while ($row=mysqli_fetch_array($ret)) 
 {
 ?>
 
 
-
-		<div class="item item-carousel">
+	<div class="item item-carousel">
 			<div class="products">
 				
 	<div class="product">		
 		<div class="product-image">
 			<div class="image">
-				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>"  width="300" height="300"></a>
-			</div><!-- /.image -->			                        		   
+				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>">
+				<img  src="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>"  width="180" height="300" alt=""></a>
+			</div><!-- /.image -->			
+
+			                        		   
 		</div><!-- /.product-image -->
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs .<?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
+					Rs.<?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productpricebeforediscount']);?>	</span>
 									
-			</div>
+			</div><!-- /.product-price -->
 			
-		</div>
+		</div><!-- /.product-info -->
 					<div class="action"><a href="index.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="lnk btn btn-primary">Add to Cart</a></div>
-			</div>
-			</div>
-		</div>
+			</div><!-- /.product -->
+      
+			</div><!-- /.products -->
+		</div><!-- /.item -->
 <?php }?>
 
 		
@@ -444,7 +452,7 @@ while ($row=mysqli_fetch_array($ret))
 		<h3 class="section-title">Fashion</h3>
 		<div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
 			<?php
-$ret=mysqli_query($con,"select * from products where category=6");
+$ret=mysqli_query($con,"SELECT * FROM tbl_product where catid=6");
 while ($row=mysqli_fetch_array($ret)) 
 {
 	# code...
@@ -463,8 +471,8 @@ while ($row=mysqli_fetch_array($ret))
 									<div class="col col-xs-6">
 										<div class="product-image">
 											<div class="image">
-												<a href="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" data-lightbox="image-1" data-title="<?php echo htmlentities($row['productName']);?>">
-													<img data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" width="170" height="174" alt="">
+												<a href="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" data-lightbox="image-1" data-title="<?php echo htmlentities($row['productname']);?>">
+													<img data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" width="170" height="174" alt="">
 													<div class="zoom-overlay"></div>
 												</a>					
 											</div><!-- /.image -->
@@ -473,11 +481,11 @@ while ($row=mysqli_fetch_array($ret))
 									</div><!-- /.col -->
 									<div class="col col-xs-6">
 										<div class="product-info">
-											<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+											<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 											<div class="rating rateit-small"></div>
 											<div class="product-price">	
 												<span class="price">
-													Rs. <?php echo htmlentities($row['productPrice']);?>
+													Rs. <?php echo htmlentities($row['productprice']);?>
 												</span>
 
 											</div><!-- /.product-price -->
@@ -490,7 +498,9 @@ while ($row=mysqli_fetch_array($ret))
 
 
 											</div>
-				</div><?php } ?>
+
+				</div>
+			<?php } ?>
 							</div>
 		</section>
 <?php include('includes/brands-slider.php');?>
