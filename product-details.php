@@ -97,7 +97,7 @@ if(isset($_POST['submit']))
 	<div class="container">
 		<div class="breadcrumb-inner">
 <?php
-$ret=mysqli_query($con,"select category.categoryName as catname,subCategory.subcategory as subcatname,products.productName as pname from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory where products.id='$pid'");
+$ret=mysqli_query($con,"SELECT tbl_catagory.categoryname as catname,tbl_subcat.subcat as subcatname,tbl_product.productname as pname from tbl_product JOIN tbl_catagory on tbl_catagory.id=tbl_product.catid JOIN tbl_subcat on tbl_subcat.id=tbl_product.subcatid where tbl_product.id='$pid'");
 while ($rw=mysqli_fetch_array($ret)) {
 
 ?>
@@ -126,14 +126,16 @@ while ($rw=mysqli_fetch_array($ret)) {
 	<div class="sidebar-widget-body m-t-10">
 		<div class="accordion">
 
-		            <?php $sql=mysqli_query($con,"select id,categoryName  from category");
-while($row=mysqli_fetch_array($sql))
-{
+		            <?php 
+		            $sql="SELECT * FROM tbl_catagory";
+		            $query=mysqli_query($con,$sql);
+		            while ($row=mysqli_fetch_array($query)) {
+		            	# code...
     ?>
 	    	<div class="accordion-group">
 	            <div class="accordion-heading">
 	                <a href="category.php?cid=<?php echo $row['id'];?>"  class="accordion-toggle collapsed">
-	                   <?php echo $row['categoryName'];?>
+	                   <?php echo $row['categoryname'];?>
 	                </a>
 	            </div>
 	          
@@ -146,55 +148,47 @@ while($row=mysqli_fetch_array($sql))
 <div class="sidebar-widget hot-deals wow fadeInUp">
 	<h3 class="section-title">hot deals</h3>
 	<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-xs">
-		
-								   <?php
-$ret=mysqli_query($con,"select * from products order by rand() limit 4 ");
-while ($rws=mysqli_fetch_array($ret)) {
-
+<?php
+		$hsql="SELECT * FROM tbl_product order by rand() limit 4";
+		$hquery=mysqli_query($con,$hsql);
+		while($result=mysqli_fetch_array($hquery)) {
+	# code...
+			
 ?>
 
-								        
-													<div class="item">
-					<div class="products">
-						<div class="hot-deal-wrapper">
-							<div class="image">
-								<img src="admin/productimages/<?php echo htmlentities($rws['productName']);?>/<?php echo htmlentities($rws['productImage1']);?>"  width="200" height="334" alt="">
+<div class="item">
+	<div class="products">
+		<div class="hot-deal-wrapper">
+			<div class="image">
+				<img src="admin/productimage/<?php echo htmlentities($result['id']);?>/<?php echo htmlentities($result['productimage1']);?>"  width="200" height="334" alt="">
+			</div>
+			</div><!-- /.hot-deal-wrapper -->
+			<div class="product-info text-left m-t-20">
+				<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($result['id']);?>"><?php echo htmlentities($result['productname']);?></a></h3>
+				<div class="rating rateit-small"></div>
+				<div class="product-price">
+					<span class="price">
+						Rs. <?php echo htmlentities($result['productprice']);?>.00
+					</span>
+					
+					<span class="price-before-discount">Rs.<?php echo htmlentities($result['productpricebeforediscount']);?></span>
+					</div><!-- /.product-price -->
+					</div><!-- /.product-info -->
+					<div class="cart clearfix animate-effect">
+						<div class="action">
+							<div class="add-cart-button btn-group">
+								<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
+								<i class="fa fa-shopping-cart"></i>
+								</button>
+								<a href="product-details.php?page=product&action=add&id=<?php echo $result['id']; ?>" class="lnk btn btn-primary">Add to cart</a>
+
+
 							</div>
-							
-						</div><!-- /.hot-deal-wrapper -->
-
-						<div class="product-info text-left m-t-20">
-							<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($rws['id']);?>"><?php echo htmlentities($rws['productName']);?></a></h3>
-							<div class="rating rateit-small"></div>
-
-							<div class="product-price">	
-								<span class="price">
-									Rs. <?php echo htmlentities($rws['productPrice']);?>.00
-								</span>
-									
-							    <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>					
-							
-							</div><!-- /.product-price -->
-							
-						</div><!-- /.product-info -->
-
-						<div class="cart clearfix animate-effect">
-							<div class="action">
-								
-								<div class="add-cart-button btn-group">
-									<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-						<a href="product-details.php?page=product&action=add&id=<?php echo $rws['id']; ?>" class="lnk btn btn-primary">Add to cart</a>
-													
-															
-								</div>
-								
 							</div><!-- /.action -->
-						</div><!-- /.cart -->
-					</div>	
-					</div>		
-					<?php } ?>        
+							</div><!-- /.cart -->
+						</div>
+					</div>
+					<?php } ?>
 						
 	    
     </div><!-- /.sidebar-widget -->
@@ -203,9 +197,10 @@ while ($rws=mysqli_fetch_array($ret)) {
 <!-- ============================================== COLOR: END ============================================== -->
 				</div>
 			</div><!-- /.sidebar -->
-<?php 
-$ret=mysqli_query($con,"select * from products where id='$pid'");
-while($row=mysqli_fetch_array($ret))
+<?php
+$psql="SELECT * FROM tbl_product WHERE id='$pid'";
+$pquery=mysqli_query($con,$psql);
+while($row=mysqli_fetch_array($pquery))
 {
 
 ?>
@@ -219,8 +214,8 @@ while($row=mysqli_fetch_array($ret))
         <div id="owl-single-product">
 
  <div class="single-product-gallery-item" id="slide1">
-                <a data-lightbox="image-1" data-title="<?php echo htmlentities($row['productName']);?>" href="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" width="370" height="350" />
+                <a data-lightbox="image-1" data-title="<?php echo htmlentities($row['productName']);?>" href="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>">
+                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" width="370" height="350" />
                 </a>
             </div>
 
@@ -228,20 +223,20 @@ while($row=mysqli_fetch_array($ret))
 
 
             <div class="single-product-gallery-item" id="slide1">
-                <a data-lightbox="image-1" data-title="<?php echo htmlentities($row['productName']);?>" href="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" width="370" height="350" />
+                <a data-lightbox="image-1" data-title="<?php echo htmlentities($row['productname']);?>" href="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>">
+                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" width="370" height="350" />
                 </a>
             </div><!-- /.single-product-gallery-item -->
 
             <div class="single-product-gallery-item" id="slide2">
-                <a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage2']);?>">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage2']);?>" />
+                <a data-lightbox="image-1" data-title="Gallery" href="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage2']);?>">
+                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage2']);?>" />
                 </a>
             </div><!-- /.single-product-gallery-item -->
 
             <div class="single-product-gallery-item" id="slide3">
-                <a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage3']);?>">
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage3']);?>" />
+                <a data-lightbox="image-1" data-title="Gallery" href="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage3']);?>">
+                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage3']);?>" />
                 </a>
             </div>
 
@@ -253,19 +248,19 @@ while($row=mysqli_fetch_array($ret))
             <div id="owl-single-product-thumbnails">
                 <div class="item">
                     <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-                        <img class="img-responsive"  alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" />
+                        <img class="img-responsive"  alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" />
                     </a>
                 </div>
 
             <div class="item">
                     <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage2']);?>"/>
+                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage2']);?>"/>
                     </a>
                 </div>
                 <div class="item">
 
                     <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage3']);?>" height="200" />
+                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage3']);?>" height="200" />
                     </a>
                 </div>
 
@@ -291,50 +286,50 @@ while($row=mysqli_fetch_array($ret))
 $num=mysqli_num_rows($rt);
 {
 ?>		
-							<div class="rating-reviews m-t-20">
-								<div class="row">
-									<div class="col-sm-3">
-										<div class="rating rateit-small"></div>
-									</div>
-									<div class="col-sm-8">
-										<div class="reviews">
-											<a href="#" class="lnk">(<?php echo htmlentities($num);?> Reviews)</a>
-										</div>
-									</div>
-								</div><!-- /.row -->		
-							</div><!-- /.rating-reviews -->
+<div class="rating-reviews m-t-20">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="rating rateit-small"></div>
+		</div>
+		<div class="col-sm-8">
+			<div class="reviews">
+				<a href="#" class="lnk">(<?php echo htmlentities($num);?> Reviews)</a>
+			</div>
+		</div>
+	</div><!-- /.row -->		
+</div><!-- /.rating-reviews -->
 <?php } ?>
-							<div class="stock-container info-container m-t-10">
-								<div class="row">
-									<div class="col-sm-3">
-										<div class="stock-box">
-											<span class="label">Availability :</span>
-										</div>	
-									</div>
-									<div class="col-sm-9">
-										<div class="stock-box">
-											<span class="value"><?php echo htmlentities($row['productAvailability']);?></span>
-										</div>	
-									</div>
-								</div><!-- /.row -->	
-							</div>
+<div class="stock-container info-container m-t-10">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="stock-box">
+				<span class="label">Availability :</span>
+			</div>	
+		</div>
+		<div class="col-sm-9">
+			<div class="stock-box">
+				<span class="value"><?php echo htmlentities($row['productAvailability']);?></span>
+			</div>	
+		</div>
+	</div><!-- /.row -->	
+</div>
 
 
 
 <div class="stock-container info-container m-t-10">
-								<div class="row">
-									<div class="col-sm-3">
-										<div class="stock-box">
-											<span class="label">Product Brand :</span>
-										</div>	
-									</div>
-									<div class="col-sm-9">
-										<div class="stock-box">
-											<span class="value"><?php echo htmlentities($row['productCompany']);?></span>
-										</div>	
-									</div>
-								</div><!-- /.row -->	
-							</div>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="stock-box">
+			<span class="label">Product Brand :</span>
+		</div>	
+	</div>
+	<div class="col-sm-9">
+		<div class="stock-box">
+			<span class="value"><?php echo htmlentities($row['productCompany']);?></span>
+		</div>	
+	</div>
+</div><!-- /.row -->	
+</div>
 
 
 <div class="stock-container info-container m-t-10">
