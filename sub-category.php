@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-$cid=intval($_GET['scid']);
+$scid=intval($_GET['scid']);
 if(isset($_GET['action']) && $_GET['action']=="add"){
 	$id=intval($_GET['id']);
 	if(isset($_SESSION['cart'][$id])){
@@ -118,7 +118,8 @@ header('location:my-wishlist.php');
 		<h4 class="widget-title">Category</h4>
 	</div>
 	<div class="sidebar-widget-body m-t-10">
-	         <?php $sql=mysqli_query($con,"select id,categoryName  from category");
+ <?php
+  $sql=mysqli_query($con,"SELECT * FROM tbl_catagory");
 while($row=mysqli_fetch_array($sql))
 {
     ?>
@@ -126,7 +127,7 @@ while($row=mysqli_fetch_array($sql))
 	    	<div class="accordion-group">
 	            <div class="accordion-heading">
 	                <a href="category.php?cid=<?php echo $row['id'];?>"  class="accordion-toggle collapsed">
-	                   <?php echo $row['categoryName'];?>
+	                   <?php echo $row['categoryname'];?>
 	                </a>
 	            </div>  
 	        </div>
@@ -157,13 +158,14 @@ while($row=mysqli_fetch_array($sql))
 						<br />
 					</div>
 
-					       <?php $sql=mysqli_query($con,"select subcategory  from subcategory where id='$cid'");
+<?php
+ $sql=mysqli_query($con,"SELECT * FROM tbl_subcat WHERE id='$scid'");
 while($row=mysqli_fetch_array($sql))
 {
     ?>
 
 					<div class="excerpt hidden-sm hidden-md">
-						<?php echo htmlentities($row['subcategory']);?>
+						<?php echo htmlentities($row['subcat']);?>
 					</div>
 			<?php } ?>
 			
@@ -178,7 +180,7 @@ while($row=mysqli_fetch_array($sql))
 							<div class="category-product  inner-top-vs">
 								<div class="row">									
 			<?php
-$ret=mysqli_query($con,"select * from products where subCategory='$cid'");
+$ret=mysqli_query($con,"SELECT * FROM tbl_product WHERE subcatid='$scid'");
 $num=mysqli_num_rows($ret);
 if($num>0)
 {
@@ -189,20 +191,20 @@ while ($row=mysqli_fetch_array($ret))
 	<div class="product">		
 		<div class="product-image">
 			<div class="image">
-				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" alt="" width="200" height="300"></a>
+				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimage/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productimage1']);?>" alt="" width="200" height="300"></a>
 			</div><!-- /.image -->			                      		   
 		</div><!-- /.product-image -->
 			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productname']);?></a></h3>
 			<div class="rating rateit-small"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
 				<span class="price">
-					Rs. <?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">Rs. <?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
+					Rs. <?php echo htmlentities($row['productprice']);?>			</span>
+										     <span class="price-before-discount">Rs. <?php echo htmlentities($row['productpricebeforediscount']);?></span>
 									
 			</div><!-- /.product-price -->
 			
