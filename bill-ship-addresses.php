@@ -10,29 +10,32 @@ else{
 	// code for billing address updation
 	if(isset($_POST['update']))
 	{
-		$baddress=$_POST['billingaddress'];
-		$bstate=$_POST['bilingstate'];
-		$bcity=$_POST['billingcity'];
-		$bpincode=$_POST['billingpincode'];
-		$query=mysqli_query($con,"update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='".$_SESSION['id']."'");
+		$id=$_SESSION['id'];
+		$billingaddress=$_POST['billingaddress'];
+		$billingstate=$_POST['billingstate'];
+		$billingcity=$_POST['billingcity'];
+		$billingpincode=$_POST['billingpincode'];
+		$sql="UPDATE tbl_user SET billingaddress='$billingaddress',billingstate='$billingstate',billingcity='$billingcity',billingpincode='$billingpincode' WHERE id='$id'";
+		$query=mysqli_query($con,$sql);
 		if($query)
 		{
-echo "<script>alert('Billing Address has been updated');</script>";
+			echo "<script>alert('Billing Address has been updated');</script>";
 		}
 	}
 
 
 // code for Shipping address updation
 	if(isset($_POST['shipupdate']))
-	{
-		$saddress=$_POST['shippingaddress'];
-		$sstate=$_POST['shippingstate'];
-		$scity=$_POST['shippingcity'];
-		$spincode=$_POST['shippingpincode'];
-		$query=mysqli_query($con,"update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='".$_SESSION['id']."'");
+	{  $id=$_SESSION['id'];
+		$shippingaddress=$_POST['shippingaddress'];
+		$shippingstate=$_POST['shippingstate'];
+		$shippingcity=$_POST['shippingcity'];
+		$shippingpincode=$_POST['shippingpincode'];
+		$sql="UPDATE tbl_user SET shippingaddress='$shippingaddress',shippingstate='$shippingstate',shippingcity='$shippingcity',shippingpincode='$shippingpincode' WHERE id='$id'";
+		$query=mysqli_query($con,$sql);
 		if($query)
 		{
-echo "<script>alert('Shipping Address has been updated');</script>";
+			echo "<script>alert('Shipping Address has been updated');</script>";
 		}
 	}
 
