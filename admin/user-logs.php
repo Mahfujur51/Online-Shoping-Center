@@ -52,31 +52,34 @@ else{
 									</thead>
 									<tbody>
 
-<?php $query=mysqli_query($con,"select * from userlog");
-$cnt=1;
+<?php
+
+$sql="SELECT * FROM tbl_userlog";
+$query=mysqli_query($con,$sql);
+$cont=1;
 while($row=mysqli_fetch_array($query))
 {
 ?>									
 										<tr>
-											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($row['userEmail']);?></td>
+											<td><?php echo htmlentities($cont);?></td>
+											<td><?php echo htmlentities($row['useremail']);?></td>
 											<td><?php echo htmlentities($row['userip']);?></td>
-											<td> <?php echo htmlentities($row['loginTime']);?></td>
-											<td><?php echo htmlentities($row['logout']); ?></td>
-										<td><?php $st=$row['status'];
+											<td> <?php echo htmlentities($row['logintime']);?></td>
+											<td><?php echo htmlentities($row['logoutime']); ?></td>
+										<td><?php $st=$row['statatus'];
 
-if($st==1)
-{
-	echo "Successfull";
-}
-else
-{
-	echo "Failed";
-}
-										 ?></td>
+											if($st==1)
+											{
+												echo "Successfull";
+											}
+											else
+											{
+												echo "Failed";
+											}
+											 ?></td>
 											
 											
-										<?php $cnt=$cnt+1; } ?>
+										<?php $cont++; } ?>
 										
 								</table>
 							</div>
