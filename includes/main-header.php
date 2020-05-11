@@ -64,7 +64,7 @@ if(!empty($_SESSION['cart'])){
 		<ul class="dropdown-menu">
 		
 		 <?php
-    $sql = "SELECT * FROM products WHERE id IN(";
+    $sql = "SELECT * FROM tbl_product WHERE id IN(";
 			foreach($_SESSION['cart'] as $id => $value){
 			$sql .=$id. ",";
 			}
@@ -75,7 +75,7 @@ if(!empty($_SESSION['cart'])){
 			if(!empty($query)){
 			while($row = mysqli_fetch_array($query)){
 				$quantity=$_SESSION['cart'][$row['id']]['quantity'];
-				$subtotal= $_SESSION['cart'][$row['id']]['quantity']*$row['productPrice']+$row['shippingCharge'];
+				$subtotal= $_SESSION['cart'][$row['id']]['quantity']*$row['productprice']+$row['shippingcharge'];
 				$totalprice += $subtotal;
 				$_SESSION['qnty']=$totalqunty+=$quantity;
 
@@ -87,13 +87,13 @@ if(!empty($_SESSION['cart'])){
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="image">
-								<a href="detail.html"><img  src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" width="35" height="50" alt=""></a>
+								<a href="detail.html"><img  src="admin/productimage/<?php echo $row['id'];?>/<?php echo $row['productimage1'];?>" width="35" height="50" alt=""></a>
 							</div>
 						</div>
 						<div class="col-xs-7">
 							
-							<h3 class="name"><a href="index.php?page-detail"><?php echo $row['productName']; ?></a></h3>
-							<div class="price">Rs.<?php echo ($row['productPrice']+$row['shippingCharge']); ?>*<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?></div>
+							<h3 class="name"><a href="index.php?page-detail"><?php echo $row['productname']; ?></a></h3>
+							<div class="price">Rs.<?php echo ($row['productprice']+$row['shippingcharge']); ?>*<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?></div>
 						</div>
 						
 					</div>

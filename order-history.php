@@ -108,7 +108,10 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null");
+<?php 
+ $id=$_SESSION['id'];
+
+$query=mysqli_query($con,"SELECT tbl_product.productimage1 as pimg1,tbl_product.productname as pname,tbl_product.id as proid,tbl_oders.productid as opid,tbl_oders.quantity as qty,tbl_product.productprice as pprice,tbl_product.shippingcharge as shippingcharge,tbl_oders.paymentmethod as paym,tbl_oders.orderdate as odate,tbl_oders.id as orderid from tbl_oders join tbl_product on tbl_oders.productid=tbl_product.id where tbl_oders.userid='$id' and tbl_oders.paymentmethod is not null");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -117,7 +120,7 @@ while($row=mysqli_fetch_array($query))
 					<td><?php echo $cnt;?></td>
 					<td class="cart-image">
 						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['proid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
+						    <img src="admin/productimage/<?php echo $row['proid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
 						</a>
 					</td>
 					<td class="cart-product-name-info">

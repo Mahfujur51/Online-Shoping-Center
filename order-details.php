@@ -103,11 +103,11 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 <?php 
 $orderid=$_POST['orderid'];
 $email=$_POST['email'];
-$ret = mysqli_query($con,"select t.email,t.id from (select usr.email,odrs.id from users as usr join orders as odrs on usr.id=odrs.userId) as t where  t.email='$email' and (t.id='$orderid')");
+$ret = mysqli_query($con,"select t.email,t.id from (select usr.email,odrs.id from tbl_user as usr join tbl_oders as odrs on usr.id=odrs.userid) as t where  t.email='$email' and (t.id='$orderid')");
 $num=mysqli_num_rows($ret);
 if($num>0)
 {
-$query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.id='$orderid' and orders.paymentMethod is not null");
+$query=mysqli_query($con,"SELECT tbl_product.productimage1 as pimg1,tbl_product.id as proid,tbl_product.productname as pname,tbl_oders.productid as opid,tbl_oders.quantity as qty,tbl_product.productprice as pprice,tbl_oders.paymentmethod as paym,tbl_oders.orderdate as odate,tbl_oders.id as orderid from tbl_oders join tbl_product on tbl_oders.productid=tbl_product.id where tbl_oders.id='$orderid' and tbl_oders.paymentmethod is not null");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -116,7 +116,7 @@ while($row=mysqli_fetch_array($query))
 					<td><?php echo $cnt;?></td>
 					<td class="cart-image">
 						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['pname'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
+						    <img src="admin/productimage/<?php echo $row['proid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
 						</a>
 					</td>
 					<td class="cart-product-name-info">
