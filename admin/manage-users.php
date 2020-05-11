@@ -47,10 +47,10 @@ else{
 		<tr>
 			<th width="5%">#</th>
 			<th width="15%"> Name</th>
-			<th width="10%">Email </th>
+	
 			<th width="10%">Contact no</th>
 			<th width="25%">Shippping Address/City/State/Pincode </th>
-			<th width="25%">Billing Address/City/State/Pincode </th>
+			
 			<th width="10%">Reg. Date </th>
 			
 		</tr>
@@ -66,10 +66,10 @@ else{
 		<tr>
 			<td width="5%"><?php echo htmlentities($cnt);?></td>
 			<td width="15%"><?php echo htmlentities($row['name']);?></td>
-			<td width="10%"><?php echo htmlentities($row['email']);?></td>
+		
 			<td width="10%">  <?php echo htmlentities($row['contactno']);?></td>
 			<td width="25%"><?php echo htmlentities($row['shippingaddress'].",".$row['shippingcity'].",".$row['shippingstate']."-".$row['shippingpincode']);?></td>
-			<td width="25%"><?php echo htmlentities($row['billingaddress'].",".$row['billingcity'].",".$row['billingstate']."-".$row['billingpincode']);?></td>
+			
 			<td width="10%"><?php echo htmlentities($row['registrationdate']);?></td>
 		</tr>
 		

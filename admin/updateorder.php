@@ -12,8 +12,8 @@ if(isset($_POST['submit2'])){
 $status=$_POST['status'];
 $remark=$_POST['remark'];//space char
 
-$query=mysqli_query($con,"insert into ordertrackhistory(orderId,status,remark) values('$oid','$status','$remark')");
-$sql=mysqli_query($con,"update orders set orderStatus='$status' where id='$oid'");
+$query=mysqli_query($con,"INSERT INTO tbl_ordertrackhistory(orderid,status,remark) values('$oid','$status','$remark')");
+$sql=mysqli_query($con,"UPDATE tbl_oders set oderstatus='$status' where id='$oid'");
 echo "<script>alert('Order updated sucessfully...');</script>";
 //}
 }
@@ -52,7 +52,7 @@ window.print();
       <td  class="fontkink"><?php echo $oid;?></td>
     </tr>
     <?php 
-$ret = mysqli_query($con,"SELECT * FROM ordertrackhistory WHERE orderId='$oid'");
+$ret = mysqli_query($con,"SELECT * FROM tbl_ordertrackhistory WHERE orderid='$oid'");
      while($row=mysqli_fetch_array($ret))
       {
      ?>
@@ -61,7 +61,7 @@ $ret = mysqli_query($con,"SELECT * FROM ordertrackhistory WHERE orderId='$oid'")
     
       <tr height="20">
       <td class="fontkink1" ><b>At Date:</b></td>
-      <td  class="fontkink"><?php echo $row['postingDate'];?></td>
+      <td  class="fontkink"><?php echo $row['postingdate'];?></td>
     </tr>
      <tr height="20">
       <td  class="fontkink1"><b>Status:</b></td>
@@ -79,10 +79,10 @@ $ret = mysqli_query($con,"SELECT * FROM ordertrackhistory WHERE orderId='$oid'")
    <?php } ?>
    <?php 
 $st='Delivered';
-   $rt = mysqli_query($con,"SELECT * FROM orders WHERE id='$oid'");
+   $rt = mysqli_query($con,"SELECT * FROM tbl_oders WHERE id='$oid'");
      while($num=mysqli_fetch_array($rt))
      {
-     $currrentSt=$num['orderStatus'];
+     $currrentSt=$num['oderstatus'];
    }
      if($st==$currrentSt)
      { ?>
